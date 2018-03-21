@@ -1,0 +1,185 @@
+<extend name="Public/base" />
+<block name="myCss">
+    <link type="text/css" href="__PUBLIC__/layui/css/laydate.css">
+</block>
+<block name="main">
+    <fieldset class="layui-elem-field">
+           <legend>项目管理 - {:(isset($detail['id'])?'编辑':'新增')}项目</legend>
+           <div class="layui-field-box">
+               <form class="layui-form" action="">
+                   <if condition="isset($detail['id'])">
+                       <input type="hidden" name="id" value="{$detail['id']}">
+                   </if>
+                   <div class="layui-form-item">
+                       <label class="layui-form-label"><span style="color:red">*</span> 项目名称</label>
+                       <div class="layui-input-block">
+                           <input type="text" name="name" required value="{:(isset($detail['name'])?$detail['name']:'')}" lay-verify="required" placeholder="请输入菜单名称" class="layui-input">
+                       </div>
+                   </div>
+                   <div class="layui-form-item">
+
+                       <label class="layui-form-label"><span style="color:red">*</span> 项目类别</label>
+                       <div class="layui-input-block">
+                           <select name="class" lay-verify="">
+                               <option value="0">请选择</option>
+                                   <option value="市场反馈问题" {:($detail['class'] == "市场反馈问题" ?'selected':'')}>市场反馈</option>
+                                   <option value="软件项目" {:($detail['class'] == "软件项目" ?'selected':'')}>软件项目</option>
+                                   <option value="效率提升" {:($detail['class'] == "效率提升" ?'selected':'')}>效率提升</option>
+                                   <option value="品质改善" {:($detail['class'] == "品质改善" ?'selected':'')}>品质改善</option>
+                                   <option value="预研项目" {:($detail['class'] == "预研项目" ?'selected':'')}>预研项目</option>
+                                   <option value="新产品" {:($detail['class'] == "新产品" ?'selected':'')}>新产品</option>
+                           </select>
+                       </div>
+                   </div>
+                   <div class="layui-form-item">
+                       <label class="layui-form-label"><span style="color:red">*</span> 项目目标及行动计划</label>
+                       <div class="layui-input-block">
+                           <input type="text" name="aim" required value="{:(isset($detail['aim'])?$detail['aim']:'')}" lay-verify="required" placeholder="请输入项目目标及行动计划" class="layui-input">
+                       </div>
+                   </div>
+                   <div class="layui-form-item">
+                       <label class="layui-form-label"><span style="color:red">*</span> 项目难点/亮点</label>
+                       <div class="layui-input-block">
+                           <input type="text" name="aim" required value="{:(isset($detail['critical'])?$detail['critical']:'')}" lay-verify="required" placeholder="请输入项目目标及行动计划" class="layui-input">
+                       </div>
+                   </div>
+                   <div class="layui-form-item">
+
+                       <label class="layui-form-label"><span style="color:red">*</span>项目主导人及关键成员</label>
+                       <div class="layui-input-block">
+                           <select name="vip"  lay-verify="member" multiple="multiple">
+                               <option value="0">请选择</option>
+                               <volist name="important" id="vo">
+                                   <option value="{$vo.nickname}" {:($detail['vip'] == $vo.name?'selected':'')}>{$vo.nickname}</option>
+                               </volist>
+                           </select>
+                       </div>
+                   </div>
+                   <div class="layui-form-item">
+                       <label class="layui-form-label"><span style="color:red">*</span> 项目组</label>
+                       <div class="layui-input-block">
+                           <select name="group" lay-verify="">
+                               <option value="0">请选择</option>
+                               <volist name="options" id="vo">
+                                   <option value="{$vo.name}" {:($detail['group'] == $vo.name?'selected':'')}>{$vo.name}</option>
+                               </volist>
+                           </select>
+                       </div>
+
+                   </div>
+                   <div class="layui-form-item">
+                       <label class="layui-form-label"><span style="color:red">*</span>开始时间</label>
+                       <div class="layui-input-block">
+                           <input type="text" class="layui-input" id="start">
+                       </div>
+                   </div>
+                   <div class="layui-form-item">
+                       <label class="layui-form-label"><span style="color:red">*</span>结束时间</label>
+                       <div class="layui-input-block">
+                           <input type="text" class="layui-input" id="end">
+                       </div>
+                   </div>
+                   <div class="layui-form-item">
+                       <label class="layui-form-label"><span style="color:red">*</span>难度等级</label>
+                       <div class="layui-input-block">
+                           <input type="text" class="layui-input" id="end">
+                       </div>
+                   </div>
+                   <div class="layui-form-item">
+                              <label class="layui-form-label"><span style="color:red">*</span> 是否启动</label>
+                              <div class="layui-input-block">
+                                  <input type="checkbox" name="status" lay-skin="switch" lay-text="启动|暂停" {:((isset($detail['status']) && $detail['status']==1)?'checked':'')}>
+                              </div>
+                   </div>
+                        <!--  <div class="layui-form-item layui-form-text">
+                              <label class="layui-form-label">菜单URL</label>
+                              <div class="layui-input-block">
+                                  <input type="text" name="url" value="{:(isset($detail['url'])?$detail['url']:'')}" placeholder="请输入菜单URL" class="layui-input">
+                              </div>
+                          </div>
+                          <div class="layui-form-item layui-form-text">
+                              <label class="layui-form-label">菜单排序</label>
+                              <div class="layui-input-block">
+                                  <input type="text" name="sort" value="{:(isset($detail['sort'])?$detail['sort']:'')}" placeholder="请输入正整数，越大排名越靠后" class="layui-input">
+                              </div>
+                          </div> -->
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="admin-form">立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+
+</block>
+<block name="myScript">
+    <script src="__PUBLIC__/layui/laydate.js"></script>
+    <script>
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+    </script>
+    <script type="text/javascript" src="__PUBLIC__/layui/layui-mz-min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        layui.use(['form', 'jquery'], function(){
+            var form = layui.form(),
+                    $ = layui.jquery;
+            layui.selMeltiple($);
+        });
+    </script>
+    <if condition="isset($detail['id'])">
+        <script>
+            layui.use('form', function(){
+                var form = layui.form();
+                form.on('submit(admin-form)', function(data){
+                    $.ajax({
+                        type: "POST",
+                        url: '{:U("edit")}',
+                        data: data.field,
+                        success: function(msg){
+                            if( msg.code == 1 ){
+                                parent.location.reload();
+                            }else{
+                                parent.layer.msg(msg.msg, {
+                                    icon: 5,
+                                    shade: [0.6, '#393D49'],
+                                    time:1500
+                                });
+                            }
+                        }
+                    });
+                    return false;
+                });
+
+            });
+        </script>
+        <else />
+        <script>
+            layui.use('form', function(){
+                var form = layui.form();
+                form.on('submit(admin-form)', function(data){
+                    $.ajax({
+                        type: "POST",
+                        url: '{:U("add")}',
+                        data: data.field,
+                        success: function(msg){
+                            if( msg.code == 1 ){
+                                parent.location.reload();
+                            }else{
+                                parent.layer.msg(msg.msg, {
+                                    icon: 5,
+                                    shade: [0.6, '#393D49'],
+                                    time:1500
+                                });
+                            }
+                        }
+                    });
+                    return false;
+                });
+
+            });
+        </script>
+    </if>
+</block>

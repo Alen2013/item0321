@@ -1,0 +1,5 @@
+#网站跟目录加入.htaccess文件就可以，配置如下
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?s=$1 [L]
